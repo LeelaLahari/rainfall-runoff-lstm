@@ -1,0 +1,22 @@
+data:
+  camels_root: "/content/drive/MyDrive/rainfall-runoff-lstm/data/CAMELS_US"
+  forcing_type: "daymet"          # options: daymet, maurer, nldas
+  basin_list_size: 100            # start with 100 basins, scale up if time allows
+  sequence_length: 365            # days of lookback per prediction
+  train_date_range: ["1990-10-01", "2003-09-30"]
+  val_date_range: ["2003-10-01", "2008-09-30"]
+  test_date_range: ["2008-10-01", "2014-09-30"]
+  held_out_basins_frac: 0.15      # fraction of basins NEVER seen in training
+
+training:
+  epochs: 25
+  batch_size: 256
+  lr: 1e-3
+  hidden_size: 128
+  num_layers: 2
+  dropout_p: 0.2
+  static_attr_embedding_dim: 16
+
+validation:
+  metric: "nse"                   # Nash-Sutcliffe Efficiency
+  nse_threshold_good: 0.5
